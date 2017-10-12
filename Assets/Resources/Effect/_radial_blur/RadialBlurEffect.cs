@@ -15,7 +15,7 @@ public class RadialBlurEffect : ScreenPostEffectBase
 
 	void OnRenderImage (RenderTexture source, RenderTexture destination)  
 	{  
-		if (m_material)  
+		if (m_material && blurFactor > 0)  
 		{  
 			m_material.SetFloat("_BlurFactor", blurFactor);  
 			m_material.SetVector("_BlurCenter", blurCenter);  
@@ -24,7 +24,31 @@ public class RadialBlurEffect : ScreenPostEffectBase
 		else  
 		{  
 			Graphics.Blit(source, destination);  
-		}     
-
+		}
 	}
+
+	#region === 加个来回特效 === 
+	public float m_duration = 1;
+	float _halfDuration = 0;
+	float _curtime = 0;
+	public bool isRunning = false;
+	void Update(){
+		if (!isRunning || m_duration <= 0)
+			return;
+
+		_halfDuration = m_duration * 0.5f;
+		_curtime += Time.deltaTime;
+		isRunning = _curtime <= m_duration;
+		if (_curtime <= _halfDuration) {
+			blurFactor = Mathf.Lerp (0.0f, 0.1f, _curtime / _halfDuration);
+		} else {
+			blurFactor = Mathf.Lerp (0.1f, 0.0f, (_curtime - _halfDuration) / _halfDuration);
+		}
+
+		if (!isRunning) {
+			_curtime = 0;
+			blurFactor = 0;
+		}
+	}
+	#endregion
 }
