@@ -19,6 +19,7 @@ public class RadialBlurEffect2 : ScreenPostEffectBase
 	public float lerpFactor = 0.5f;
 
 	//降低分辨率
+	[Range(1,8)]
 	public int downSampleFactor = 2;
 
 	void OnRenderImage (RenderTexture source, RenderTexture destination)  

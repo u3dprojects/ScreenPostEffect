@@ -10,6 +10,7 @@ public class GaussianBlur2 : ScreenPostEffectBase
 	//模糊半径
 	public float BlurRadius = 1.0f;
 	//降分辨率
+	[Range(1,8)]
 	public int downSample = 2;
 	//迭代次数
 	public int iteration = 1;

@@ -14,6 +14,7 @@ public class DepthOfFiled : ScreenPostEffectBase
 	[Range(0.0f, 1000.0f)]
 	public float farBlurScale = 50.0f;
 	//分辨率
+	[Range(1,8)]
 	public int downSample = 1;
 	//采样率
 	public int samplerScale = 1;
