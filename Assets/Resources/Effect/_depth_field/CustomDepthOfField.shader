@@ -1,4 +1,6 @@
-﻿Shader "Custom/DepthOfField"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/DepthOfField"
 {
 	Properties{
         _MainTex("Base (RGB)", 2D) = "white" {}
@@ -38,7 +40,7 @@
     {
         v2f_blur o;
         _offsets *= _MainTex_TexelSize.xyxy;
-        o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+        o.pos = UnityObjectToClipPos(v.vertex);
         o.uv = v.texcoord.xy;
  
         o.uv01 = v.texcoord.xyxy + _offsets.xyxy * float4(1, 1, -1, -1);
@@ -67,7 +69,7 @@
     {
         v2f_dof o;
         //mvp矩阵变换
-        o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+        o.pos = UnityObjectToClipPos(v.vertex);
         //uv坐标传递
         o.uv.xy = v.texcoord.xy;
         o.uv1.xy = o.uv.xy;

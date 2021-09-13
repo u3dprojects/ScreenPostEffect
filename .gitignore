@@ -49,3 +49,5 @@ sysinfo.txt
 
 # 新增自定义忽略文件
 dRoleInfo.*
+Logs/Packages-Update.log
+.vscode/settings.json

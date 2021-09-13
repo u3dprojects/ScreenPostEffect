@@ -24,6 +24,8 @@ public class Bloom : ScreenPostEffectBase
 	{
 		if (m_material)
 		{
+			if(source.width <= 0 || source.height <= 0) return;
+			
 			//申请两块RT，并且分辨率按照downSameple降低
 			RenderTexture temp1 = RenderTexture.GetTemporary(source.width >> downSample, source.height >> downSample, 0, source.format);
 			RenderTexture temp2 = RenderTexture.GetTemporary(source.width >> downSample, source.height >> downSample, 0, source.format);

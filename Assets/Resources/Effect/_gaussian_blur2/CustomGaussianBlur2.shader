@@ -1,4 +1,6 @@
-﻿Shader "Custom/GaussianBlur2"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/GaussianBlur2"
 {
 	Properties  
     {  
@@ -31,7 +33,7 @@
     v2f_blur vert_blur(appdata_img v)  
     {  
         v2f_blur o;  
-        o.pos = mul(UNITY_MATRIX_MVP, v.vertex);  
+        o.pos = UnityObjectToClipPos(v.vertex);  
         //uv坐标  
         o.uv = v.texcoord.xy;  
   

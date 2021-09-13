@@ -1,4 +1,6 @@
-﻿Shader "Custom/GaussianBlur"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/GaussianBlur"
 {
 	Properties {  
         _MainTex ("Base (RGB)", 2D) = "white" {}  
@@ -30,7 +32,7 @@
 	v2f_withBlurCoordsSGX vertBlurHorizontalSGX (appdata_img v)  
 	{  
 	    v2f_withBlurCoordsSGX o;  
-	    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);  
+	    o.pos = UnityObjectToClipPos (v.vertex);  
 	      
 	    o.uv = v.texcoord.xy;  
 	    half2 netFilterWidth = _MainTex_TexelSize.xy * half2(1.0, 0.0) * _blurSize;   
@@ -48,7 +50,7 @@
 	v2f_withBlurCoordsSGX vertBlurVerticalSGX (appdata_img v)  
 	{  
 	    v2f_withBlurCoordsSGX o;  
-	    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);  
+	    o.pos = UnityObjectToClipPos (v.vertex);  
 	      
 	    o.uv = v.texcoord.xy;  
 	    half2 netFilterWidth = _MainTex_TexelSize.xy * half2(0.0, 1.0) * _blurSize;  

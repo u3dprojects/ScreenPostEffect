@@ -1,4 +1,6 @@
-﻿Shader "Custom/Bloom"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Bloom"
 {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
@@ -46,7 +48,7 @@
 	v2f_threshold vert_threshold(appdata_img v)
 	{
 		v2f_threshold o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.uv = v.texcoord.xy;
 		//dx中纹理从左上角为初始坐标，需要反向
 #if UNITY_UV_STARTS_AT_TOP
@@ -68,7 +70,7 @@
 	{
 		v2f_blur o;
 		_offsets *= _MainTex_TexelSize.xyxy;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.uv = v.texcoord.xy;
 
 		o.uv01 = v.texcoord.xyxy + _offsets.xyxy * float4(1, 1, -1, -1);
@@ -97,7 +99,7 @@
 	{
 		v2f_bloom o;
 		//mvp矩阵变换
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		//uv坐标传递
 		o.uv.xy = v.texcoord.xy;
 		o.uv1.xy = o.uv.xy;

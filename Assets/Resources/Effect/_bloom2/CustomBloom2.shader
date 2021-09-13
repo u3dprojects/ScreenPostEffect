@@ -1,4 +1,6 @@
-﻿Shader "Custom/Bloom2"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Bloom2"
 {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
@@ -49,7 +51,7 @@
 	v2f_threshold vert_threshold(appdata_img v)
 	{
 		v2f_threshold o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.uv = v.texcoord;
 
 		return o;
@@ -73,7 +75,7 @@
 	v2f_blur vert_blur_vertical(appdata_img v)
 	{
 		v2f_blur o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		half2 uv = v.texcoord;
 		o.uv[0] = uv;
 		o.uv[1] = uv + float2(0.0,_MainTex_TexelSize.y * 1.0) * _BlurSize;
@@ -87,7 +89,7 @@
 	v2f_blur vert_blur_horizontal(appdata_img v)
 	{
 		v2f_blur o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		half2 uv = v.texcoord;
 		o.uv[0] = uv;
 		o.uv[1] = uv + float2(_MainTex_TexelSize.x * 1.0,0.0) * _BlurSize;
@@ -115,7 +117,7 @@
 	{
 		v2f_bloom o;
 		//mvp矩阵变换
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		//uv坐标传递
 		o.uv.xy = v.texcoord;
 		o.uv.zw = v.texcoord;

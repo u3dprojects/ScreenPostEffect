@@ -1,4 +1,6 @@
-﻿Shader "Custom/RadialBlur2"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/RadialBlur2"
 {
 	Properties   
     {  
@@ -44,7 +46,7 @@
     v2f_lerp vert_lerp(appdata_img v)  
     {  
         v2f_lerp o;  
-        o.pos = mul(UNITY_MATRIX_MVP, v.vertex);  
+        o.pos = UnityObjectToClipPos(v.vertex);  
         o.uv1 = v.texcoord.xy;  
         o.uv2 = v.texcoord.xy;  
         //dx中纹理从左上角为初始坐标，需要反向(在写rt的时候需要注意)  
